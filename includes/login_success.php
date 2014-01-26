@@ -1,12 +1,13 @@
 <?php
 session_start();
 if(!session_is_registered(myusername)){
-header("location:includes/main_login.php");
+header("location:main_login.php");
 }
 ?>
 
 <html>
+<head></head>
 <body>
-<p>Login Successful</p>
+Login Successful
 </body>
 </html>

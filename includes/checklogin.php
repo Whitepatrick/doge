@@ -1,6 +1,7 @@
 <?php
 
-$host=127.0.0.1; 
+
+$host=192.168.2.7; 
 $username="doge";  
 $password="B0obs4dc"; 
 $db_name="doge";  
