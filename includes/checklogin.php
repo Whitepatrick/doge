@@ -1,11 +1,11 @@
 <?php
 
 
-$host=192.168.2.7; 
-$username="doge";  
+$host=127.0.0.1; 
+$username="root";  
 $password="B0obs4dc"; 
 $db_name="doge";  
-$tbl_name="dogeAccount"; 
+$tbl_name="doge_username"; 
 
 // Connect to server and select databse.
 mysql_connect("$host", "$username", "$password")or die("cannot connect"); 
