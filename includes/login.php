@@ -1,34 +1,31 @@
 <?php 
 
-    // First we execute our common code to connection to the database and start the session 
+    // establish connection with db 
     require("common.php"); 
      
-    // This variable will be used to re-display the user's username to them in the 
-    // login form if they fail to enter the correct password.  It is initialized here 
-    // to an empty value, which will be shown if the user has not submitted the form. 
+    // initialize variable 
     $submitted_username = ''; 
      
-    // This if statement checks to determine whether the login form has been submitted 
-    // If it has, then the login code is run, otherwise the form is displayed 
+    // if form has been submitted, login code runs 
     if(!empty($_POST)) 
     { 
         // This query retreives the user's information from the database using 
         // their username. 
         $query = " 
             SELECT 
-                id, 
-                username, 
-                password, 
+                doge_id, 
+                doge_username, 
+                doge_password, 
                 salt, 
                 email 
             FROM users 
             WHERE 
-                username = :username 
+                doge_username = :doge_username 
         "; 
          
         // The parameter values 
         $query_params = array( 
-            ':username' => $_POST['username'] 
+            ':doge_username' => $_POST['doge_username'] 
         ); 
          
         try 
@@ -57,13 +54,13 @@
             // Using the password submitted by the user and the salt stored in the database, 
             // we now check to see whether the passwords match by hashing the submitted password 
             // and comparing it to the hashed version already stored in the database. 
-            $check_password = hash('sha256', $_POST['password'] . $row['salt']); 
+            $check_password = hash('sha256', $_POST['doge_password'] . $row['salt']); 
             for($round = 0; $round < 65536; $round++) 
             { 
                 $check_password = hash('sha256', $check_password . $row['salt']); 
             } 
              
-            if($check_password === $row['password']) 
+            if($check_password === $row['doge_password']) 
             { 
                 // If they do, then we flip this to true 
                 $login_ok = true; 
@@ -80,7 +77,7 @@
             // in it unless you have to.  Thus, it is best practice to remove these 
             // sensitive values first. 
             unset($row['salt']); 
-            unset($row['password']); 
+            unset($row['doge_password']); 
              
             // This stores the user's data into the session at the index 'user'. 
             // We will check this index on the private members-only page to determine whether 
@@ -102,7 +99,7 @@
             // always use htmlentities on user submitted values before displaying them 
             // to any users (including the user that submitted them).  For more information: 
             // http://en.wikipedia.org/wiki/XSS_attack 
-            $submitted_username = htmlentities($_POST['username'], ENT_QUOTES, 'UTF-8'); 
+            $submitted_username = htmlentities($_POST['doge_username'], ENT_QUOTES, 'UTF-8'); 
         } 
     } 
      
@@ -110,10 +107,10 @@
 <h1>Login</h1> 
 <form action="login.php" method="post"> 
     Username:<br /> 
-    <input type="text" name="username" value="<?php echo $submitted_username; ?>" /> 
+    <input type="text" name="doge_username" value="<?php echo $submitted_username; ?>" /> 
     <br /><br /> 
     Password:<br /> 
-    <input type="password" name="password" value="" /> 
+    <input type="password" name="doge_password" value="" /> 
     <br /><br /> 
     <input type="submit" value="Login" /> 
 </form> 

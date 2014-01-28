@@ -62,7 +62,7 @@
         $query = " 
             SELECT 
                 1 
-            FROM users 
+            FROM doge_users 
             WHERE 
                 email = :email 
         "; 
@@ -146,13 +146,13 @@
 <h1>Register</h1> 
 <form action="register.php" method="post"> 
     Username:<br /> 
-    <input type="text" name="username" value="" /> 
+    <input type="text" name="doge_username" value="" /> 
     <br /><br /> 
     E-Mail:<br /> 
     <input type="text" name="email" value="" /> 
     <br /><br /> 
     Password:<br /> 
-    <input type="password" name="password" value="" /> 
+    <input type="password" name="doge_password" value="" /> 
     <br /><br /> 
     <input type="submit" value="Register" /> 
 </form>
