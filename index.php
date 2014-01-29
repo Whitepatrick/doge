@@ -13,14 +13,15 @@
 
 <meta name="author" content="Patrick White" />
 
+<link rel="stylesheet" type="text/css" href="style.css" media="screen"/>
+
 <title>Doge Walk</title>
 
 </head>
 
         <body>
 
-<?php include('includes/login.php'); ?>
-
+<?php include'includes/splash.php'; ?> 
 
         </body>
 
