@@ -33,7 +33,7 @@
             $query = " 
                 SELECT 
                     1 
-                FROM users 
+                FROM doge_users 
                 WHERE 
                     email = :email 
             "; 
@@ -85,14 +85,14 @@
         // Initial query parameter values 
         $query_params = array( 
             ':email' => $_POST['email'], 
-            ':user_id' => $_SESSION['user']['id'], 
+            ':doge_id' => $_SESSION['user']['id'], 
         ); 
          
         // If the user is changing their password, then we need parameter values 
         // for the new password hash and salt too. 
         if($password !== null) 
         { 
-            $query_params[':password'] = $password; 
+            $query_params[':doge_password'] = $password; 
             $query_params[':salt'] = $salt; 
         } 
          
@@ -100,7 +100,7 @@
         // construct the rest of it depending on whether or not the user is changing 
         // their password. 
         $query = " 
-            UPDATE users 
+            UPDATE doge_users 
             SET 
                 email = :email 
         "; 
@@ -110,7 +110,7 @@
         if($password !== null) 
         { 
             $query .= " 
-                , password = :password 
+                , doge_password = :doge_password 
                 , salt = :salt 
             "; 
         } 
@@ -119,7 +119,7 @@
         // to update the one record with for the current user. 
         $query .= " 
             WHERE 
-                id = :user_id 
+                doge_id = :doge_id 
         "; 
          
         try 
