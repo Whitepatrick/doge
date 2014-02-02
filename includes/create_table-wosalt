@@ -1,0 +1,9 @@
+CREATE TABLE `doge_users` (
+  `doge_id` int(11) NOT NULL AUTO_INCREMENT,
+  `doge_username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `doge_password` char(64) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`doge_id`),
+  UNIQUE KEY `doge_username` (`doge_username`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;

@@ -7,15 +7,15 @@
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
-<meta name="description" content="Doge Walk" />
+<meta name="description" content="Doge Walks" />
 
-<meta name="keywords" content="development" />
+<meta name="keywords" content="doge" />
 
 <meta name="author" content="Patrick White" />
 
 <link rel="stylesheet" type="text/css" href="style.css" media="screen"/>
 
-<title>Doge Walk</title>
+<title>Doge Walks</title>
 
 </head>
 
