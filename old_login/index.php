@@ -21,7 +21,7 @@
 
         <body>
 
-<?php include'splash.php'; ?> 
+<?php include'includes/splash.php'; ?> 
 
         </body>
 
