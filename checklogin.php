@@ -4,8 +4,8 @@
 
 ob_start();
 $host="127.0.0.1"; // Host name
-$username="doge"; // Mysql username
-$password="doge"; // Mysql password
+$username="root"; // Mysql username
+$password="P13857"; // Mysql password
 $db_name="doge"; // Database name
 $tbl_name="doge_users"; // Table name
 
@@ -34,7 +34,7 @@ $count=mysql_num_rows($result);
 if($count==1){
 
 // Register $myusername, $mypassword and redirect to file "login_success.php"
-
+session_start();
 $_SESSION['myusername']=$myusername;
 
 header("location:login_success.php");
