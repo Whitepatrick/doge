@@ -4,8 +4,8 @@
 
 ob_start();
 $host="127.0.0.1"; // Host name
-$username="root"; // Mysql username
-$password="B0obs4dc"; // Mysql password
+$username="doge"; // Mysql username
+$password="doge"; // Mysql password
 $db_name="doge"; // Database name
 $tbl_name="doge_users"; // Table name
 
