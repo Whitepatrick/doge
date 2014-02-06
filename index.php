@@ -24,7 +24,7 @@
         <body>
 
 <?php include'splash.php'; ?> 
-
+<?php include'register.php'; ?>
         </body>
 
 </html>

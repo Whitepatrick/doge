@@ -7,12 +7,12 @@
     if(!empty($_POST)) 
     { 
         // Exception handling for empty username/password fields 
-        if(empty($_POST['doge_username'])) 
+        if(empty($_POST['myusername'])) 
         { 
             die("Please enter a username."); 
         } 
          
-        if(empty($_POST['doge_password'])) 
+        if(empty($_POST['myusername'])) 
         { 
             die("Please enter a password."); 
         } 
@@ -29,12 +29,12 @@
                 1 
             FROM doge_users 
             WHERE 
-                doge_username = :doge_username 
+                doge_username = :username 
         "; 
          
         // :doge_username is a token to avoid SQLi 
         $query_params = array( 
-            ':doge_username' => $_POST['doge_username'] 
+            ':username' => $_POST['doge_username'] 
         ); 
          
         try 

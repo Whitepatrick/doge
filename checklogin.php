@@ -2,16 +2,7 @@
 
 <?php
 
-ob_start();
-$host="127.0.0.1"; // Host name
-$username="root"; // Mysql username
-$password="P13857"; // Mysql password
-$db_name="doge"; // Database name
-$tbl_name="doge_users"; // Table name
-
-// Connect to server and select databse.
-mysql_connect("$host", "$username", "$password")or die("cannot connect");
-mysql_select_db("$db_name")or die("cannot select DB");
+require("common.php");
 
 // username and password sent from form
 $myusername=$_POST['myusername'];
