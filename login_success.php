@@ -11,5 +11,7 @@ header("location:main_login.php");
 <head></head>
 <body>
 Login Successful
+<h3><a href="admin_check.php">Very admin</a><h3>
+
 </body>
 </html>
