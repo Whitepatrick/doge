@@ -5,9 +5,14 @@
 
 require("common.php")
 
-$sql="SELECT * FROM $tbl_name WHERE doge_admin=1";
+// session_start();
+// if(!$_SESSION['myusername']){
+// header("location:main_login.php");
+// }
 
-$result=mysql_query($sql);
+$admin_sql="SELECT * FROM $tbl_name WHERE doge_admin=1";
+
+$result=mysql_query($admin_sql);
 
 if ($result="1")
 {
@@ -15,3 +20,5 @@ header("Location:admin.php")
 else
 header("Location:main_login.php");
 }
+
+?>

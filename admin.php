@@ -1,3 +1,3 @@
 <?php
 
-echo"great success!!"
+echo 'great success!!'
