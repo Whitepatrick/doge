@@ -15,7 +15,7 @@
 
 <link rel="stylesheet" type="text/css" href="style.css" media="screen"/>
 
-<link rel="icon" type="image/ico" href="doge.ico"/>
+<link rel="icon" type="image/ico" href="favicon.ico"/>
 
 <title>Doge Walks</title>
 
