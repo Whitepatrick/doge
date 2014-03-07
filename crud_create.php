@@ -15,7 +15,49 @@
                     </div>
              
                     <form class="form-horizontal" action="crud_create.php" method="post">
-                      <div class="control-group <?php echo !empty($nameError)?'error':'';?>">
+                      
+			<div class="control-group <?php echo !empty($firstNameError)?'error':'';?>">
+                        <label class="control-label">First Name</label>
+                        <div class="controls">
+                            <input name="name" type="text"  placeholder="Name" value="<?php echo !empty($firstName)?$firstName:'';?>">
+                            <?php if (!empty($firstNameError)): ?>
+                                <span class="help-inline"><?php echo $firstNameError;?></span>
+                            <?php endif; ?>
+                        </div>
+                      </div>
+
+
+			<div class="control-group <?php echo !empty($lastNameError)?'error':'';?>">
+                        <label class="control-label">Last Name</label>
+                        <div class="controls">
+                            <input name="name" type="text"  placeholder="Name" value="<?php echo !empty($lastName)?$lastName:'';?>">
+                            <?php if (!empty($lastNameError)): ?>
+                                <span class="help-inline"><?php echo $lastNameError;?></span>
+                            <?php endif; ?>
+                        </div>
+                      </div>
+
+			<div class="control-group <?php echo !empty($mailingAddressError)?'error':'';?>">
+                        <label class="control-label">Mailing Address</label>
+                        <div class="controls">
+                            <input name="name" type="text"  placeholder="Name" value="<?php echo !empty($mailingAddress)?$mailingAddress:'';?>">
+                            <?php if (!empty($mailingAddressError)): ?>
+                                <span class="help-inline"><?php echo $mailingAddressError;?></span>
+                            <?php endif; ?>
+                        </div>
+                      </div>
+
+			<div class="control-group <?php echo !empty($mailingExtraLineError)?'error':'';?>">
+                        <label class="control-label">Suite/Apt.</label>
+                        <div class="controls">
+                            <input name="name" type="text"  placeholder="Name" value="<?php echo !empty($mailingExtraLine)?$mailingExtraLine:'';?>">
+                            <?php if (!empty($mailingExtraLineError)): ?>
+                                <span class="help-inline"><?php echo $mailingExtraLineError;?></span>
+                            <?php endif; ?>
+                        </div>
+                      </div>
+
+			<div class="control-group <?php echo !empty($nameError)?'error':'';?>">
                         <label class="control-label">Name</label>
                         <div class="controls">
                             <input name="name" type="text"  placeholder="Name" value="<?php echo !empty($name)?$name:'';?>">
@@ -24,25 +66,34 @@
                             <?php endif; ?>
                         </div>
                       </div>
+
+
+
                       <div class="control-group <?php echo !empty($emailError)?'error':'';?>">
                         <label class="control-label">Email Address</label>
                         <div class="controls">
-                            <input name="email" type="text" placeholder="Email Address" value="<?php echo !empty($email)?$email:'';?>">
+                            <input name="EmailAddress" type="text" placeholder="Email Address" value="<?php echo !empty($email)?$email:'';?>">
                             <?php if (!empty($emailError)): ?>
                                 <span class="help-inline"><?php echo $emailError;?></span>
                             <?php endif;?>
                         </div>
                       </div>
-                      <div class="control-group <?php echo !empty($mobileError)?'error':'';?>">
+                      <div class="control-group <?php echo !empty($loginIdError)?'error':'';?>">
                         <label class="control-label">Login Id</label>
                         <div class="controls">
-                            <input name="loginId" type="text"  placeholder="Login Id" value="<?php echo !empty($loginId)?$loginId:'';?>">
+                            <input name="LoginId" type="text"  placeholder="Login Id" value="<?php echo !empty($loginId)?$loginId:'';?>">
                             <?php if (!empty($loginIdError)): ?>
                                 <span class="help-inline"><?php echo $loginIdError;?></span>
                             <?php endif;?>
-                        </div>
+		      </div>
                       </div>
-                      <div class="form-actions">
+                     <div class="control-group <?php echo !empty($mailingAddressError)?'error':'';?>">
+                        <label class="control-label">Mailing Address</label>
+                        <div class="controls">
+                            <input name="MailingAddress" type="text"  placeholder="Mailing Address" value="<?php echo !empty($mailingAddress)?$mailingAddress:'';?>">
+			    <span class="help-inline"><?php echo $mailingAddress;?></span>
+                            <?php endif;?>
+			  <div class="form-actions">
                           <button type="submit" class="btn btn-success">Create</button>
                           <a class="btn" href="crud_index.php">Back</a>
                         </div>
@@ -59,35 +110,91 @@
  
     if ( !empty($_POST)) {
         // keep track validation errors
-        $nameError = null;
-        $emailError = null;
-        $loginIdError = null;
+        $firstNameError = null;
+	$lastNameError = null;
+	$mailingAddressError = null;
+	$mailingExtraLineError = null;
+	$mailingCityError = null;
+	$mailingStateError = null;
+	$mailingZipError = null;
+	$emailAddressError = null;
+        $phoneNumberError = null;
+	$loginIdError = null;
+	$passwordError = null;
          
         // keep track post values
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $loginId = $_POST['loginId'];
+        $firstName = $_POST['FirstName'];
+	$lastName = $_POST['LastName'];
+	$mailingAddress = $_POST['MailingAddress'];
+	$mailingExtraLine = $_POST['MailingExtraLine'];
+	$mailingCity = $_POST['MailingCity'];
+	$mailingState = $_POST['MailingState'];
+	$mailingZip = $_POST['MailingZip'];
+	$emailAddress = $_POST['EmailAddress'];
+	$phoneNumber = $_POST['PhoneNumber'];
+	$loginId = $_POST['LoginId'];
+	$password = $_POST['Password'];
          
         // validate input
         $valid = true;
-        if (empty($name)) {
-            $nameError = 'Please enter Name';
+        if (empty($firstName)) {
+            $firstNameError = 'Please enter First Name';
             $valid = false;
         }
          
-        if (empty($email)) {
-            $emailError = 'Please enter Email Address';
-            $valid = false;
-        } else if ( !filter_var($email,FILTER_VALIDATE_EMAIL) ) {
-            $emailError = 'Please enter a valid Email Address';
+        if (empty($lastName)) {
+            $lastNameError = 'Please enter Last Name';
             $valid = false;
         }
-         
+                 
+        if (empty($mailingAddress)) {
+            $mailingAddressError = 'Please enter Street Address';
+            $valid = false;
+        }
+        
+	if (empty($mailingExtraLine)) {
+            $mailingExtraLineError = 'Please enter Suite/Apt';
+            $valid = false;
+        }
+
+	if (empty($mailingCity)) {
+            $mailingPostOfficeError = 'Please enter City';
+            $valid = false;
+        }
+
+	if (empty($mailingState)) {
+            $mailingStateError = 'Please enter two letter State';
+            $valid = false;
+        }
+
+        if (empty($mailingZip)) {
+            $mailingZipError = 'Please enter Zip Code';
+            $valid = false;
+        }
+
+	if (empty($emailAddress)) {
+            $emailAddressError = 'Please enter Email Address';
+            $valid = false;
+        } else if ( !filter_var($emailAddress,FILTER_VALIDATE_EMAIL) ) {
+            $emailAddressError = 'Please enter a valid Email Address';
+            $valid = false;
+        }
+
+	if (empty($phoneNumber)) {
+            $phoneNumberError = 'Please enter Phone Number';
+            $valid = false;
+        }
+
         if (empty($loginId)) {
             $loginIdError = 'Please enter Login ID';
             $valid = false;
         }
-         
+
+	if (empty($password)) {
+            $passwordError = 'Please enter Password';
+            $valid = false;
+        }
+	 
         // insert data
         if ($valid) {
             $pdo = Database::connect();

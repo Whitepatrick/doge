@@ -7,9 +7,12 @@
 </head>
  
 <body>
+
+<?php include('includes/search_bar.php') ?>
+
     <div class="container">
             <div class="row">
-                <h3>PHP CRUD Grid</h3>
+                <h3>Doge Database UI</h3>
             </div>
             <div class="row">
                 <p>
@@ -34,8 +37,14 @@
                             echo '<td>'. $row['FirstName'] . '</td>';
                             echo '<td>'. $row['EmailAddress'] . '</td>';
                             echo '<td>'. $row['LoginId'] . '</td>';
-                            echo '<td><a class="btn" href="read.php?id='.$row['Id'].'">Read</a></td>';
-			    echo '</tr>';
+                            echo '<td width=250>';
+			    echo '<a class="btn" href="read.php?id='.$row['id'].'">Read</a>';
+                            echo '';
+                            echo '<a class="btn btn-success" href="update.php?id='.$row['id'].'">Update</a>';
+                            echo '';
+                            echo '<a class="btn btn-danger" href="delete.php?id='.$row['id'].'">Delete</a>';
+                            echo '</td>';
+
                    }
                    Database::disconnect();
                   ?>
