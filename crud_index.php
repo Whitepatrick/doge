@@ -21,10 +21,18 @@
                 <table class="table table-striped table-bordered">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Email Address</th>
+                      <th>ID</th>
+		      <th>First Name</th>
+                      <th>Last Name</th>
+		      <th>Mailing Address</th>
+		      <th>Suite/Apt</th>
+		      <th>City</th>
+		      <th>State</th>	
+		      <th>Zip Code</th>
+		      <th>Email Address</th>
+		      <th>Phone Number</th>
                       <th>Login ID</th>
-                      <th>Action</th>
+		      <th>Action</th>
 		     </tr>
                   </thead>
                   <tbody>
@@ -34,10 +42,19 @@
                    $sql = 'SELECT * FROM users ORDER BY Id DESC';
                    foreach ($pdo->query($sql) as $row) {
                             echo '<tr>';
+                            echo '<td>'. $row['Id'] . '</td>';
                             echo '<td>'. $row['FirstName'] . '</td>';
+                            echo '<td>'. $row['LastName'] . '</td>';
+                            echo '<td>'. $row['MailingAddress'] . '</td>';
+                            echo '<td>'. $row['MailingExtraLine'] . '</td>';
+                            echo '<td>'. $row['MailingCity'] . '</td>';
+			    echo '<td>'. $row['MailingState'] . '</td>';
+                            echo '<td>'. $row['MailingZip'] . '</td>';
                             echo '<td>'. $row['EmailAddress'] . '</td>';
+			    echo '<td>'. $row['PhoneNumber'] . '</td>';
                             echo '<td>'. $row['LoginId'] . '</td>';
-                            echo '<td width=250>';
+			    echo '<td>'. $row['Password'] . '</td>';
+			    echo '<td width=250>';
 			    echo '<a class="btn" href="read.php?id='.$row['Id'].'">Read</a>';
                             echo '';
                             echo '<a class="btn btn-success" href="update.php?id='.$row['Id'].'">Update</a>';
