@@ -19,7 +19,7 @@
 			<div class="control-group <?php echo !empty($firstNameError)?'error':'';?>">
                         <label class="control-label">First Name</label>
                         <div class="controls">
-                            <input name="name" type="text"  placeholder="Name" value="<?php echo !empty($firstName)?$firstName:'';?>">
+                            <input name="name" type="text"  placeholder="First Name" value="<?php echo !empty($firstName)?$firstName:'';?>">
                             <?php if (!empty($firstNameError)): ?>
                                 <span class="help-inline"><?php echo $firstNameError;?></span>
                             <?php endif; ?>
@@ -30,7 +30,7 @@
 			<div class="control-group <?php echo !empty($lastNameError)?'error':'';?>">
                         <label class="control-label">Last Name</label>
                         <div class="controls">
-                            <input name="name" type="text"  placeholder="Name" value="<?php echo !empty($lastName)?$lastName:'';?>">
+                            <input name="name" type="text"  placeholder="Last Name" value="<?php echo !empty($lastName)?$lastName:'';?>">
                             <?php if (!empty($lastNameError)): ?>
                                 <span class="help-inline"><?php echo $lastNameError;?></span>
                             <?php endif; ?>
@@ -40,7 +40,7 @@
 			<div class="control-group <?php echo !empty($mailingAddressError)?'error':'';?>">
                         <label class="control-label">Mailing Address</label>
                         <div class="controls">
-                            <input name="name" type="text"  placeholder="Name" value="<?php echo !empty($mailingAddress)?$mailingAddress:'';?>">
+                            <input name="name" type="text"  placeholder="Mailing Address" value="<?php echo !empty($mailingAddress)?$mailingAddress:'';?>">
                             <?php if (!empty($mailingAddressError)): ?>
                                 <span class="help-inline"><?php echo $mailingAddressError;?></span>
                             <?php endif; ?>
@@ -50,34 +50,67 @@
 			<div class="control-group <?php echo !empty($mailingExtraLineError)?'error':'';?>">
                         <label class="control-label">Suite/Apt.</label>
                         <div class="controls">
-                            <input name="name" type="text"  placeholder="Name" value="<?php echo !empty($mailingExtraLine)?$mailingExtraLine:'';?>">
+                            <input name="name" type="text"  placeholder="Mailing Extra Line" value="<?php echo !empty($mailingExtraLine)?$mailingExtraLine:'';?>">
                             <?php if (!empty($mailingExtraLineError)): ?>
                                 <span class="help-inline"><?php echo $mailingExtraLineError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
 
-			<div class="control-group <?php echo !empty($nameError)?'error':'';?>">
-                        <label class="control-label">Name</label>
+			<div class="control-group <?php echo !empty($mailingCityError)?'error':'';?>">
+                        <label class="control-label">Mailing City</label>
                         <div class="controls">
-                            <input name="name" type="text"  placeholder="Name" value="<?php echo !empty($name)?$name:'';?>">
-                            <?php if (!empty($nameError)): ?>
-                                <span class="help-inline"><?php echo $nameError;?></span>
+                            <input name="name" type="text"  placeholder="Mailing City" value="<?php echo !empty($mailingCity)?$mailingCity:'';?>">
+                            <?php if (!empty($mailingCity)): ?>
+                                <span class="help-inline"><?php echo $mailingCityError;?></span>
+                            <?php endif; ?>
+                        </div>
+                      </div>
+			
+			<div class="control-group <?php echo !empty($mailingStateError)?'error':'';?>">
+                        <label class="control-label">Mailing State</label>
+                        <div class="controls">
+                            <input name="name" type="text"  placeholder="Mailing State" value="<?php echo !empty($mailingState)?$mailingState:'';?>">
+                            <?php if (!empty($mailingState)): ?>
+                                <span class="help-inline"><?php echo $mailingCityError;?></span>
+                            <?php endif; ?>
+                        </div>
+                      </div>
+
+					
+			<div class="control-group <?php echo !empty($mailingZipError)?'error':'';?>">
+                        <label class="control-label">Zip Code</label>
+                        <div class="controls">
+                            <input name="name" type="text"  placeholder="Zip Code" value="<?php echo !empty($mailingZip)?$mailingZip:'';?>">
+                            <?php if (!empty($mailingZip)): ?>
+                                <span class="help-inline"><?php echo $mailingZipError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
 
 
-
-                      <div class="control-group <?php echo !empty($emailError)?'error':'';?>">
+                      <div class="control-group <?php echo !empty($emailAddressError)?'error':'';?>">
                         <label class="control-label">Email Address</label>
                         <div class="controls">
-                            <input name="EmailAddress" type="text" placeholder="Email Address" value="<?php echo !empty($email)?$email:'';?>">
-                            <?php if (!empty($emailError)): ?>
-                                <span class="help-inline"><?php echo $emailError;?></span>
+                            <input name="EmailAddress" type="text" placeholder="Email Address" value="<?php echo !empty($emailAddress)?$emailAddress:'';?>">
+                            <?php if (!empty($emailAddressError)): ?>
+                                <span class="help-inline"><?php echo $emailAddressError;?></span>
                             <?php endif;?>
                         </div>
                       </div>
+
+
+			<div class="control-group <?php echo !empty($phoneNumberError)?'error':'';?>">
+                        <label class="control-label">Phone Number</label>
+                        <div class="controls">
+                            <input name="name" type="text"  placeholder="Phone Number" value="<?php echo !empty($phoneNumber)?$phoneNumber:'';?>">
+                            <?php if (!empty($phoneNumber)): ?>
+                                <span class="help-inline"><?php echo $phoneNumberError;?></span>
+                            <?php endif; ?>
+                        </div>
+                      </div>
+
+
                       <div class="control-group <?php echo !empty($loginIdError)?'error':'';?>">
                         <label class="control-label">Login Id</label>
                         <div class="controls">
@@ -87,12 +120,14 @@
                             <?php endif;?>
 		      </div>
                       </div>
-                     <div class="control-group <?php echo !empty($mailingAddressError)?'error':'';?>">
-                        <label class="control-label">Mailing Address</label>
+                     <div class="control-group <?php echo !empty($passwordError)?'error':'';?>">
+                        <label class="control-label">Password</label>
                         <div class="controls">
-                            <input name="MailingAddress" type="text"  placeholder="Mailing Address" value="<?php echo !empty($mailingAddress)?$mailingAddress:'';?>">
-			    <span class="help-inline"><?php echo $mailingAddress;?></span>
-                            <?php endif;?>
+                            <input name="Password" type="password"  placeholder="password" value="<?php echo !empty($password)?$password:'';?>">
+			    <span class="help-inline"><?php echo $passwordError;?></span>
+                           
+				</div>
+				</div>
 			  <div class="form-actions">
                           <button type="submit" class="btn btn-success">Create</button>
                           <a class="btn" href="crud_index.php">Back</a>
@@ -199,9 +234,9 @@
         if ($valid) {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO users (FirstName,EmailAddress,LoginId) values(?, ?, ?)";
+            $sql = "INSERT INTO users (FirstName,LastName,MailingAddress,MailingExtraLine,MailingCity,MailingState,MailingZip,EmailAddress,PhoneNumber,LoginId,password) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $q = $pdo->prepare($sql);
-            $q->execute(array($name,$email,$loginId));
+            $q->execute(array($firstName,$lastName,$mailingAddress,$mailingExtraLine,$mailingCity,$mailingState,$mailingZip,$emailAddress,$phoneNumber,$loginId,$password));
             Database::disconnect();
             header("Location: crud_index.php");
         }
