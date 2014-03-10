@@ -35,7 +35,9 @@
                     </div>
                      
                     <div class="form-horizontal" >
-                      <div class="control-group">
+                      
+
+			<div class="control-group">
                         <label class="control-label">First Name</label>
                         <div class="controls">
                             <label class="checkbox">
@@ -43,7 +45,63 @@
                             </label>
                         </div>
                       </div>
+                      
+			<div class="control-group">
+                        <label class="control-label">Last Name</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <?php echo $data['LastName'];?>
+                            </label>
+                        </div>
+                      </div>
+
+
+			<div class="control-group">
+                        <label class="control-label">Mailing Address</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <?php echo $data['MailingAddress'];?>
+                            </label>
+                        </div>
+                      </div>
+
+
+			<div class="control-group">
+                        <label class="control-label">Apt/Suite</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <?php echo $data['MailingExtraLine'];?>
+                            </label>
+                        </div>
+                      </div>
                       <div class="control-group">
+                        <label class="control-label">City</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <?php echo $data['MailingCity'];?>
+                            </label>
+                        </div>
+                      </div>
+                        
+			<div class="control-group">
+                        <label class="control-label">State</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <?php echo $data['MailingState'];?>
+                            </label>
+                        </div>
+                      </div>
+		
+			<div class="control-group">
+                        <label class="control-label">Zip Code</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <?php echo $data['MailingZip'];?>
+                            </label>
+                        </div>
+                      </div>
+
+			<div class="control-group">
                         <label class="control-label">Email Address</label>
                         <div class="controls">
                             <label class="checkbox">
@@ -51,7 +109,17 @@
                             </label>
                         </div>
                       </div>
-                      <div class="control-group">
+
+			<div class="control-group">
+                        <label class="control-label">Phone Number</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <?php echo $data['PhoneNumber'];?>
+                            </label>
+                        </div>
+                      </div>
+			
+			<div class="control-group">
                         <label class="control-label">Login ID</label>
                         <div class="controls">
                             <label class="checkbox">
@@ -59,7 +127,8 @@
                             </label>
                         </div>
                       </div>
-                        <div class="form-actions">
+
+			<div class="form-actions">
                           <a class="btn" href="crud_index.php">Back</a>
                        </div>
                      

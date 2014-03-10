@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,12 +5,22 @@
     <link   href="css/bootstrap.min.css" rel="stylesheet">
     <script src="scripts/bootstrap.min.js"></script>
 </head>
+ 
+<body>
 
 <?php
-
     require 'database.php';
-
-    if (!empty($_POST)) {
+ 
+    $id = null;
+    if ( !empty($_GET['Id'])) {
+        $id = $_REQUEST['Id'];
+    }
+     
+    if ( null==$id ) {
+        header("Location: crud_index.php");
+    }
+     
+    if ( !empty($_POST)) {
         // keep track validation errors
         $firstNameError = null;
         $lastNameError = null;
@@ -24,19 +33,10 @@
         $phoneNumberError = null;
         $loginIdError = null;
         $passwordError = null;
-
+         
         // keep track post values
-	
-        // if ($firstName isset($_POST['FirstName']));
-        // if (isset(
-
-	// $_POST['FirstName'], $_POST['LastName'], $_POST['MailingAddress'], $_POST['MailingExtraLine'], 
-	// $_POST['MailingCity'], $_POST['MailingState'], $_POST['MailingZip'], $_POST['EmailAddress'], 
-	// $_POST['PhoneNumber'], $_POST['LoginId'], $_POST['Password']
-
-	// ));
-	$firstName = $_POST['FirstName'];
-	$lastName = $_POST['LastName'];
+        $firstName = $_POST['FirstName'];
+        $lastName = $_POST['LastName'];
         $mailingAddress = $_POST['MailingAddress'];
         $mailingExtraLine = $_POST['MailingExtraLine'];
         $mailingCity = $_POST['MailingCity'];
@@ -46,9 +46,7 @@
         $phoneNumber = $_POST['PhoneNumber'];
         $loginId = $_POST['LoginId'];
         $password = $_POST['Password'];
-        if(isset($_POST['notify_box'])){ $notify = $_POST['notify_box']; }
-
-
+         
         // validate input
         $valid = true;
         if (empty($firstName)) {
@@ -81,7 +79,7 @@
             $valid = false;
         }
 
-        if (empty($mailingZip)) {
+	if (empty($mailingZip)) {
             $mailingZipError = 'Please enter Zip Code';
             $valid = false;
         }
@@ -108,31 +106,52 @@
             $passwordError = 'Please enter Password';
             $valid = false;
         }
-
-        // insert data
+         
+        // update data
         if ($valid) {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO users (FirstName,LastName,MailingAddress,MailingExtraLine,MailingCity,MailingState,MailingZip,EmailAddress,PhoneNumber,LoginId,Password) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "UPDATE users  set FirstName = ?, LastName = ?, MailingAddress = ?,
+		 MailingExtraLine = ?, MailingCity = ?, MailingState = ?, MailingZip = ?,
+		 EmailAddress = ?, PhoneNumber = ?, LoginId = ?, Password = ? WHERE Id = ?";
             $q = $pdo->prepare($sql);
-            $q->execute(array($firstName,$lastName,$mailingAddress,$mailingExtraLine,$mailingCity,$mailingState,$mailingZip,$emailAddress,$phoneNumber,$loginId,$password));
+            $q->execute(array($firstName, $lastName, $mailingAddress, $mailingExtraLine, $mailingCity, $mailingState, $mailingZip, $emailAddress, $phoneNumber, $loginId, $password));
             Database::disconnect();
             header("Location: crud_index.php");
         }
+    } else {
+        $pdo = Database::connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT * FROM users where Id = ?";
+        $q = $pdo->prepare($sql);
+        $q->execute(array($id));
+        $data = $q->fetch(PDO::FETCH_ASSOC);
+        $firstName = $data['FirstName'];
+        $lastName = $data['LastName'];
+        $mailingAddress = $data['MailingAddress'];
+        $mailingExtraLine = $data['MailingExtraLine'];
+        $mailingCity = $data['MailingCity'];
+        $mailingState = $data['MailingState'];
+        $mailingZip = $data['MailingZip'];
+        $emailAddress = $data['EmailAddress'];
+        $phoneNumber = $data['PhoneNumber'];
+        $loginId = $data['LoginId'];
+        $password = $data['Password'];
+        Database::disconnect();
     }
-?> 
+?>
 
-<body>
     <div class="container">
      
                 <div class="span10 offset1">
                     <div class="row">
-                        <h3>Create a Customer</h3>
+                        <h3>Update a Customer</h3>
                     </div>
              
-                    <form class="form-horizontal" action="crud_create.php" method="post">
+                    <form class="form-horizontal" action="update.php?id=<?php echo $id?>" method="post">
                       
-			<div class="control-group <?php echo !empty($firstNameError)?'error':'';?>">
+
+<div class="control-group <?php echo !empty($firstNameError)?'error':'';?>">
                         <label class="control-label">First Name</label>
                         <div class="controls">
                             <input type="text"  name="FirstName" value="<?php echo !empty($firstName)?$firstName:'';?>">
@@ -143,7 +162,7 @@
                       </div>
 
 
-			<div class="control-group <?php echo !empty($lastNameError)?'error':'';?>">
+                        <div class="control-group <?php echo !empty($lastNameError)?'error':'';?>">
                         <label class="control-label">Last Name</label>
                         <div class="controls">
                             <input type="text"  name="LastName" value="<?php echo !empty($lastName)?$lastName:'';?>">
@@ -153,7 +172,7 @@
                         </div>
                       </div>
 
-			<div class="control-group <?php echo !empty($mailingAddressError)?'error':'';?>">
+                        <div class="control-group <?php echo !empty($mailingAddressError)?'error':'';?>">
                         <label class="control-label">Mailing Address</label>
                         <div class="controls">
                             <input type="text"  name="MailingAddress" value="<?php echo !empty($mailingAddress)?$mailingAddress:'';?>">
@@ -163,7 +182,7 @@
                         </div>
                       </div>
 
-			<div class="control-group <?php echo !empty($mailingExtraLineError)?'error':'';?>">
+<div class="control-group <?php echo !empty($mailingExtraLineError)?'error':'';?>">
                         <label class="control-label">Suite/Apt.</label>
                         <div class="controls">
                             <input type="text"  name="MailingExtraLine" value="<?php echo !empty($mailingExtraLine)?$mailingExtraLine:'';?>">
@@ -173,7 +192,7 @@
                         </div>
                       </div>
 
-			<div class="control-group <?php echo !empty($mailingCityError)?'error':'';?>">
+                        <div class="control-group <?php echo !empty($mailingCityError)?'error':'';?>">
                         <label class="control-label">Mailing City</label>
                         <div class="controls">
                             <input type="text"  name="MailingCity" value="<?php echo !empty($mailingCity)?$mailingCity:'';?>">
@@ -182,8 +201,8 @@
                             <?php endif; ?>
                         </div>
                       </div>
-			
-			<div class="control-group <?php echo !empty($mailingStateError)?'error':'';?>">
+
+                        <div class="control-group <?php echo !empty($mailingStateError)?'error':'';?>">
                         <label class="control-label">Mailing State (enter 2 letter abbreviation)</label>
                         <div class="controls">
                             <input type="text"  name="MailingState" value="<?php echo !empty($mailingState)?$mailingState:'';?>">
@@ -193,8 +212,7 @@
                         </div>
                       </div>
 
-					
-			<div class="control-group <?php echo !empty($mailingZipError)?'error':'';?>">
+<div class="control-group <?php echo !empty($mailingZipError)?'error':'';?>">
                         <label class="control-label">Zip Code</label>
                         <div class="controls">
                             <input type="text"  name="MailingZip" value="<?php echo !empty($mailingZip)?$mailingZip:'';?>">
@@ -216,7 +234,7 @@
                       </div>
 
 
-			<div class="control-group <?php echo !empty($phoneNumberError)?'error':'';?>">
+                        <div class="control-group <?php echo !empty($phoneNumberError)?'error':'';?>">
                         <label class="control-label">Phone Number</label>
                         <div class="controls">
                             <input type="text"  name="PhoneNumber" value="<?php echo !empty($phoneNumber)?$phoneNumber:'';?>">
@@ -226,26 +244,27 @@
                         </div>
                       </div>
 
-
-                      <div class="control-group <?php echo !empty($loginIdError)?'error':'';?>">
+<div class="control-group <?php echo !empty($loginIdError)?'error':'';?>">
                         <label class="control-label">Login Id</label>
                         <div class="controls">
                             <input name="LoginId" type="text"  name="LoginId" value="<?php echo !empty($loginId)?$loginId:'';?>">
                             <?php if (!empty($loginIdError)): ?>
                                 <span class="help-inline"><?php echo $loginIdError;?></span>
                             <?php endif;?>
-		      </div>
+                      </div>
                       </div>
                      <div class="control-group <?php echo !empty($passwordError)?'error':'';?>">
                         <label class="control-label">Password</label>
                         <div class="controls">
                             <input name="Password" type="password"  name="Password" value="<?php echo !empty($password)?$password:'';?>">
-			    <span class="help-inline"><?php echo $passwordError;?></span>
-                           
-				</div>
-				</div>
-			  <div class="form-actions">
-                          <button type="submit" class="btn btn-success">Create</button>
+                            <span class="help-inline"><?php echo $passwordError;?></span>
+
+                                </div>
+                                </div>
+
+
+			<div class="form-actions">
+                          <button type="submit" class="btn btn-success">Update</button>
                           <a class="btn" href="crud_index.php">Back</a>
                         </div>
                     </form>
@@ -254,4 +273,3 @@
     </div> <!-- /container -->
   </body>
 </html>
-

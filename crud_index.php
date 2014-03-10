@@ -32,7 +32,7 @@
 		      <th>Email Address</th>
 		      <th>Phone Number</th>
                       <th>Login ID</th>
-		      <th>Action</th>
+		      <!-- th>Action</th -->
 		     </tr>
                   </thead>
                   <tbody>
@@ -53,7 +53,6 @@
                             echo '<td>'. $row['EmailAddress'] . '</td>';
 			    echo '<td>'. $row['PhoneNumber'] . '</td>';
                             echo '<td>'. $row['LoginId'] . '</td>';
-			    echo '<td>'. $row['Password'] . '</td>';
 			    echo '<td width=250>';
 			    echo '<a class="btn" href="read.php?id='.$row['Id'].'">Read</a>';
                             echo '';
