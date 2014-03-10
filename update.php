@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link   href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/jquery-2.1.0.js"></script>
 </head>
  
 <body>
@@ -145,7 +146,7 @@
      
                 <div class="span10 offset1">
                     <div class="row">
-                        <h3>Update a Customer</h3>
+                        <h3>Update a Doge User</h3>
                     </div>
              
                     <form class="form-horizontal" action="update.php?id=<?php echo $id?>" method="post">
