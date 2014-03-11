@@ -13,7 +13,7 @@
     require 'database.php';
  
     $id = null;
-    if ( !empty($_GET['Id'])) {
+    if (!empty($_GET['Id'])) {
         $id = $_REQUEST['Id'];
     }
      
@@ -21,7 +21,7 @@
         header("Location: crud_index.php");
     }
      
-    if ( !empty($_POST)) {
+    if (!empty($_POST)) {
         // keep track validation errors
         $firstNameError = null;
         $lastNameError = null;

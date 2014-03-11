@@ -1,27 +1,3 @@
-<?php
-    require 'database.php';
-    $id = 0;
-     
-    if ( !empty($_GET['Id'])) {
-        $id = $_REQUEST['Id'];
-    }
-     
-    if ( !empty($_POST)) {
-        // keep track post values
-        $id = $_POST['Id'];
-         
-        // delete data
-        $pdo = Database::connect();
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "DELETE FROM users  WHERE Id = ?";
-        $q = $pdo->prepare($sql);
-        $q->execute(array($id));
-        Database::disconnect();
-        header("Location: crud_index.php");
-         
-    }
-?>
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,6 +8,31 @@
 </head>
  
 <body>
+
+<?php
+    require 'database.php';
+    $id = 0;
+
+    if ( !empty($_GET['Id'])) {
+        $id = $_REQUEST['Id'];
+    }
+
+    if ( !empty($_POST)) {
+        // keep track post values
+        $id = $_POST['Id'];
+
+        // delete data
+        $pdo = Database::connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "DELETE FROM users WHERE Id = ?";
+        $q = $pdo->prepare($sql);
+        $q->execute(array($id));
+        Database::disconnect();
+        header("Location: crud_index.php");
+
+    }
+?>
+
     <div class="container">
      
                 <div class="span10 offset1">
