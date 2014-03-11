@@ -57,7 +57,7 @@
 			    echo '<td width=250>';
 			    echo '<a class="btn" href="read.php?id='.$row['Id'].'">Read</a>';
                             echo '';
-                            echo '<a class="btn btn-success" href="update.php?id='.$row['Id'].'">Update</a>';
+                            echo '<a class="btn btn-success" href="test_update.php?id='.$row['Id'].'">Update</a>';
                             echo '';
                             echo '<a class="btn btn-danger" href="delete.php?id='.$row['Id'].'">Delete</a>';
                             echo '</td>';
