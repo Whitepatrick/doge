@@ -1,16 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link   href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/jquery-2.1.0.js"></script>
+</head>
+
 <?php
+
     require 'database.php';
 
-    $id = null;
-    if (!empty($_GET['Id'])) {
-        $id = $_REQUEST['Id'];
+    	$id = null;
+    if ( !empty($_GET['id'])) {
+        $id = $_REQUEST['id'];
     }
-
+     
     if ( null==$id ) {
         header("Location: crud_index.php");
-    }
 
-    if (!empty($_POST)) {
+     
+     if (!empty($_POST)) {
         // keep track validation errors
         $firstNameError = null;
         $lastNameError = null;
@@ -23,10 +33,8 @@
         $phoneNumberError = null;
         $loginIdError = null;
         $passwordError = null;
-	
 
-	// keep track post values
-        $firstName = $_POST['FirstName'];
+	$firstName = $_POST['FirstName'];
         $lastName = $_POST['LastName'];
         $mailingAddress = $_POST['MailingAddress'];
         $mailingExtraLine = $_POST['MailingExtraLine'];
@@ -37,6 +45,8 @@
         $phoneNumber = $_POST['PhoneNumber'];
         $loginId = $_POST['LoginId'];
         $password = $_POST['Password'];
+        if(isset($_POST['notify_box'])){ $notify = $_POST['notify_box']; }
+
 
         // validate input
         $valid = true;
@@ -61,7 +71,7 @@
         }
 
         if (empty($mailingCity)) {
-            $mailingPostOfficeError = 'Please enter City';
+            $mailingCityError = 'Please enter City';
             $valid = false;
         }
 
@@ -98,23 +108,20 @@
             $valid = false;
         }
 
-        // update data
+	// update data
         if ($valid) {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "UPDATE users  set FirstName = ?, LastName = ?, MailingAddress = ?,
-                 MailingExtraLine = ?, MailingCity = ?, MailingState = ?, MailingZip = ?,
-                 EmailAddress = ?, PhoneNumber = ?, LoginId = ?, Password = ? WHERE Id = ?";
+            $sql = "UPDATE users  set FirstName = ?, LastName = ?, MailingAddress =?, MailingExtraLine = ?, MailingCity = ?, MailingState = ?, MailingZip = ?, EmailAddress = ?, PhoneNumber = ?, LoginId = ?, Password = ? WHERE id = ?";
             $q = $pdo->prepare($sql);
-            $q->execute(array($firstName, $lastName, $mailingAddress, $mailingExtraLine, $mailingCity, $mailingState, $mailingZip, $emailAddress, $phoneNumber, $loginId, $password));
+            $q->execute(array($firstName,$lastName,$mailingAddress,$mailingExtraLine,$mailingCity,$mailingState,$mailingZip,$emailAddress,$phoneNumber,$loginId,$password,$id));
             Database::disconnect();
             header("Location: crud_index.php");
         }
-
- 	} else {
+     } else {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM users where Id = ?";
+        $sql = "SELECT * FROM customers where Id = ?";
         $q = $pdo->prepare($sql);
         $q->execute(array($id));
         $data = $q->fetch(PDO::FETCH_ASSOC);
@@ -130,31 +137,21 @@
         $loginId = $data['LoginId'];
         $password = $data['Password'];
         Database::disconnect();
-    }
+    
+	}
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="scripts/bootstrap.min.js"></script>
-    <script src="scripts/jquery-2.1.0.js"></script>
-</head>
-
 <body>
-
-<div class="container">
+    <div class="container">
 
                 <div class="span10 offset1">
                     <div class="row">
-                        <h3>Update a Doge User</h3>
+                        <h3>Update User</h3>
                     </div>
 
-                    <form class="form-horizontal" action="update.php?id=<?php echo $id?>" method="post">
+                    <form class="form-horizontal" action="test_update.php" method="post">
 
-
-<div class="control-group <?php echo !empty($firstNameError)?'error':'';?>">
+                        <div class="control-group <?php echo !empty($firstNameError)?'error':'';?>">
                         <label class="control-label">First Name</label>
                         <div class="controls">
                             <input type="text"  name="FirstName" value="<?php echo !empty($firstName)?$firstName:'';?>">
@@ -215,7 +212,8 @@
                         </div>
                       </div>
 
-<div class="control-group <?php echo !empty($mailingZipError)?'error':'';?>">
+
+                        <div class="control-group <?php echo !empty($mailingZipError)?'error':'';?>">
                         <label class="control-label">Zip Code</label>
                         <div class="controls">
                             <input type="text"  name="MailingZip" value="<?php echo !empty($mailingZip)?$mailingZip:'';?>">
@@ -246,7 +244,8 @@
                         </div>
                       </div>
 
-<div class="control-group <?php echo !empty($loginIdError)?'error':'';?>">
+
+                      <div class="control-group <?php echo !empty($loginIdError)?'error':'';?>">
                         <label class="control-label">Login Id</label>
                         <div class="controls">
                             <input name="LoginId" type="text"  name="LoginId" value="<?php echo !empty($loginId)?$loginId:'';?>">
@@ -263,10 +262,8 @@
 
                                 </div>
                                 </div>
-
-
-                        <div class="form-actions">
-			<button type="submit" class="btn btn-success">Update</button>
+<div class="form-actions">
+                          <button type="submit" class="btn btn-success">Update</button>
                           <a class="btn" href="crud_index.php">Back</a>
                         </div>
                     </form>
@@ -275,4 +272,3 @@
     </div> <!-- /container -->
   </body>
 </html>
-

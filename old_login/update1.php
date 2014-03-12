@@ -128,10 +128,10 @@
      
                 <div class="span10 offset1">
                     <div class="row">
-                        <h3>Create a Customer</h3>
+                        <h3>Update User</h3>
                     </div>
              
-                    <form class="form-horizontal" action="crud_create.php" method="post">
+                    <form class="form-horizontal" action="update.php" method="post">
                       
 			<div class="control-group <?php echo !empty($firstNameError)?'error':'';?>">
                         <label class="control-label">First Name</label>
@@ -246,7 +246,7 @@
 				</div>
 				</div>
 			  <div class="form-actions">
-                          <button type="submit" class="btn btn-success">Create</button>
+                          <button type="submit" class="btn btn-success">Update</button>
                           <a class="btn" href="crud_index.php">Back</a>
                         </div>
                     </form>
@@ -255,4 +255,3 @@
     </div> <!-- /container -->
   </body>
 </html>
-
