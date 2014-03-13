@@ -22,7 +22,12 @@
             <div class="row">
                 
 		<p><a href="create.php" class="btn btn-success">Create</a></p>
-		<p><input id="fileupload" type="file" name="TabFile" class="btn btn-success"></p>
+		<!-- <p><input id="fileupload" type="file" name="TabFile" formaction="upload.php" class="btn btn-success"></p> -->
+
+		<form enctype="multipart/form-data" action="upload.php" method="POST">
+ Please choose a file: <input name="uploaded" type="file" /><br />
+ <input type="submit" value="Upload" />
+ </form>
                 
 		<table class="table table-striped table-bordered">
                   <thead>
