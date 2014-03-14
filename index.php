@@ -22,13 +22,10 @@
             <div class="row">
                 
 		<p><a href="create.php" class="btn btn-success">Create</a></p>
-		<!-- <p><input id="fileupload" type="file" name="TabFile" formaction="upload.php" class="btn btn-success"></p> -->
-
-		<form enctype="multipart/form-data" action="upload.php" method="POST">
- Please choose a file: <input name="uploaded" type="file" /><br />
- <input type="submit" value="Upload" />
- </form>
-                
+               
+		<!-- upload section -->
+		<?php include ('upload.php') ?>
+ 
 		<table class="table table-striped table-bordered">
                   <thead>
                     <tr>
@@ -41,9 +38,6 @@
 		      <th>State</th>	
 		      <th>Zip Code</th>
 		      <th>Email Address</th>
-		      <th>Phone Number</th>
-                      <th>Login ID</th>
-		      <!-- th>Action</th -->
 		     </tr>
                   </thead>
                   <tbody>
@@ -62,8 +56,6 @@
 			    echo '<td>'. $row['MailingState'] . '</td>';
                             echo '<td>'. $row['MailingZip'] . '</td>';
                             echo '<td>'. $row['EmailAddress'] . '</td>';
-			    echo '<td>'. $row['PhoneNumber'] . '</td>';
-                            echo '<td>'. $row['LoginId'] . '</td>';
 			    echo '<td width=250>';
 			    echo '<a class="btn" href="read.php?id='.$row['Id'].'">Read</a>';
                             echo '';

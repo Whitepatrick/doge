@@ -8,7 +8,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" rel="home" href="../crud_index.php" title="Doge Walks">Doge Walks</a>
+        <!-- script src="scripts/rand_img.js"></script -->
+	<a class="navbar-brand" rel="home" href="../crud_index.php" title="Doge Walks">Doge Walks</a>
     </div>
 
     <div class="collapse navbar-collapse navbar-ex1-collapse">

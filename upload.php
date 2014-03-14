@@ -1,24 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link   href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/jquery-2.1.0.js"></script>
+</head>
+<body>
+
 <?php
 
-//$tabFile = fopen(['TabFile'], "r");
 
-//if (feof($tabFile)) {}
 
-//$DBCon = mysql_connect('127.0.0.1', 'doge', 'root', 'P13857');
-//$DBTab = mysql_select_db('users');
+if ($_FILES["file"]["error"] > 0)
+  {
+  echo "Error: " . $_FILES["file"]["error"] . "<br>";
+  }
+else
+  {
+  echo "Upload: " . $_FILES["file"]["name"] . "<br>";
+  echo "Type: " . $_FILES["file"]["type"] . "<br>";
+  echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
+  echo "Stored in: " . $_FILES["file"]["tmp_name"];
+  }
 
-//while (!feof($tabFile) {}
 
-//$writeIn = fgets($tabFile);
- 
- $target = "upload/"; 
- $target = $target . basename( $_FILES['uploaded']['name']) ; 
- $ok=1; 
- if(move_uploaded_file($_FILES['uploaded']['tmp_name'], $target)) 
- {
- echo "The file ". basename( $_FILES['uploadedfile']['name']). " has been uploaded";
- } 
- else {
- echo "Sorry, there was a problem uploading your file.";
- }
- ?> 
+
+?>
+
+
+<form action="upload.php" method="post"
+enctype="multipart/form-data">
+<label for="file">Filename:</label>
+<input type="file" name="file" id="file"><br>
+<input type="submit" name="submit" value="Submit">
+</form>
+
+</body>
+</html> 

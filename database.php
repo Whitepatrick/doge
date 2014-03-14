@@ -1,8 +1,8 @@
 <?php
 class Database
 {
-    private static $dbName = 'doge' ;
-    private static $dbHost = '127.0.0.1' ;
+    private static $dbName = 'doge';
+    private static $dbHost = '127.0.0.1';
     private static $dbUsername = 'root';
     private static $dbUserPassword = 'P13857';
      
