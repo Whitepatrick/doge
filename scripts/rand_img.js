@@ -12,6 +12,7 @@
  image[1] = 'rain_doge.png'
  image[2] = 'sleep_doge.png'
  image[3] = 'snoqdoge.png'
+ image[4] = 'doge-regular.png'
  var rand = 60/image.length
  function randomimage() {
  	currentdate = new Date()
