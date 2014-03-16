@@ -21,22 +21,19 @@
             </div>
             <div class="row">
                 
-		<p><a href="create.php" class="btn btn-success">Create</a></p>
+		<p><a href="create.php" class="btn btn-success">Create User</a></p>
+		<p><a href="goods_create.php" class="btn btn-success">Create Goods</a></p>
                
-		<!-- upload section -->
-		<?php include ('upload.php') ?>
- 
 		<table class="table table-striped table-bordered">
                   <thead>
                     <tr>
                       <th>ID</th>
 		      <th>First Name</th>
                       <th>Last Name</th>
+		      <th>Extra Line</th>
 		      <th>Mailing Address</th>
-		      <th>Suite/Apt</th>
-		      <th>City</th>
-		      <th>State</th>	
-		      <th>Zip Code</th>
+		      <th>City and State</th>
+		      <th>Zip Code</th>	
 		      <th>Email Address</th>
 		     </tr>
                   </thead>
@@ -52,9 +49,8 @@
                             echo '<td>'. $row['LastName'] . '</td>';
                             echo '<td>'. $row['MailingAddress'] . '</td>';
                             echo '<td>'. $row['MailingExtraLine'] . '</td>';
-                            echo '<td>'. $row['MailingCity'] . '</td>';
-			    echo '<td>'. $row['MailingState'] . '</td>';
-                            echo '<td>'. $row['MailingZip'] . '</td>';
+                            echo '<td>'. $row['MailingPostOffice'] . '</td>';
+			    echo '<td>'. $row['MailingZip'] . '</td>';
                             echo '<td>'. $row['EmailAddress'] . '</td>';
 			    echo '<td width=250>';
 			    echo '<a class="btn" href="read.php?id='.$row['Id'].'">Read</a>';
