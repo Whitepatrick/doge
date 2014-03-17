@@ -15,17 +15,18 @@
 
     if (!empty($_POST)) {
         // keep track validation errors
-        $firstNameError = null;
-        $lastNameError = null;
-        $mailingAddressError = null;
-        $mailingExtraLineError = null;
-        $mailingCityError = null;
-        $mailingStateError = null;
-        $mailingZipError = null;
-        $emailAddressError = null;
-        $phoneNumberError = null;
-        $loginIdError = null;
-        $passwordError = null;
+        $descriptionError = null;
+        $classError = null;
+	$ledgerInError = null;
+        $costError = null;
+        $ledgerOutError = null;
+        $priceError = null;
+        $primarySupplierError = null;
+        $primarySupplierPartNoError = null;
+        $imageNameError = null;
+        $qohError = null;
+        $safetyLevelError = null;
+        $eoqError = null;
 
         // keep track post values
 	
@@ -37,77 +38,94 @@
 	// $_POST['PhoneNumber'], $_POST['LoginId'], $_POST['Password']
 
 	// ));
-	$firstName = $_POST['FirstName'];
-	$lastName = $_POST['LastName'];
-        $mailingAddress = $_POST['MailingAddress'];
-        $mailingExtraLine = $_POST['MailingExtraLine'];
-        $mailingCity = $_POST['MailingCity'];
-        $mailingState = $_POST['MailingState'];
-        $mailingZip = $_POST['MailingZip'];
-        $emailAddress = $_POST['EmailAddress'];
-        $phoneNumber = $_POST['PhoneNumber'];
-        $loginId = $_POST['LoginId'];
-        $password = $_POST['Password'];
+	$class = $_POST['Class'];
+	$description = $_POST['Description'];
+        $ledgerIn = $_POST['LedgerIn'];
+        $cost = $_POST['Cost'];
+        $ledgerOut = $_POST['LedgerOut'];
+        $price = $_POST['Price'];
+        $primarySupplier = $_POST['PrimarySupplier'];
+        $primarySupplierPartNo = $_POST['PrimarySupplierPartNo'];
+        $imageName = $_POST['ImageName'];
+        $qoh = $_POST['QOH'];
+        $safetyLevel = $_POST['SafetyLevel'];
+	$eoq = $_POST['EOQ'];
         if(isset($_POST['notify_box'])){ $notify = $_POST['notify_box']; }
 
 
         // validate input
         $valid = true;
-        if (empty($firstName)) {
-            $firstNameError = 'Please enter First Name';
+        if (empty($description)) {
+            $descriptionError = 'Describe activity';
             $valid = false;
         }
 
-        if (empty($lastName)) {
-            $lastNameError = 'Please enter Last Name';
+        if (empty($class)) {
+            $classError = 'Please enter activity class';
+            $valid = false;
+	}            
+	
+	if (empty($ledgerIn)) {
+	    $ledgerInError = 'Please enter monetary value';
+	    $valid = false;	
+	} else if ( !filter_var($ledgerIn,FILTER_VALIDATE_INT) ) {
+	    $ledgerInError = 'Please enter a dollar amount';
+	    $valid = false;
+	}
+
+	if (empty($cost)) {
+            $costError = 'Please enter monetary value';     
+            $valid = false;
+        } else if ( !is_float($cost) ) {
+            $ledgerInError = 'Please enter a dollar amount';
             $valid = false;
         }
 
-        if (empty($mailingAddress)) {
-            $mailingAddressError = 'Please enter Street Address';
+	if (empty($ledgerOut)) {
+            $ledgerOutError = 'Please enter monetary value';     
+            $valid = false;
+        } else if ( !filter_var($ledgerOut,FILTER_VALIDATE_INT) ) {
+            $ledgerOutError = 'Please enter a dollar amount';
             $valid = false;
         }
 
-        if (empty($mailingExtraLine)) {
-            $mailingExtraLineError = 'Please enter Suite/Apt';
+	if (empty($price)) {
+            $priceError = 'Please enter monetary value';    
+            $valid = false;
+        } else if ( !is_float($price) ) {
+            $priceError = 'Please enter a dollar amount';
             $valid = false;
         }
 
-        if (empty($mailingCity)) {
-            $mailingPostOfficeError = 'Please enter City';
+	if (empty($primarySupplier)) {
+            $primarySupplierError = 'Please enter an integer';
+            $valid = false;
+        } else if ( !filter_var($ledgerOut,FILTER_VALIDATE_INT) ) {
+            $primarySupplierError = 'Please enter an integer';
             $valid = false;
         }
 
-        if (empty($mailingState)) {
-            $mailingStateError = 'Please enter two letter State';
+	if (empty($qoh)) {
+            $qohError = 'Please enter an amount';
+            $valid = false;
+        } else if ( !is_float($qoh) ) {
+            $qohError = 'Please enter an amount';
             $valid = false;
         }
 
-        if (empty($mailingZip)) {
-            $mailingZipError = 'Please enter Zip Code';
+	if (empty($safetyLevel)) {
+            $safetyLevelError = 'Please enter an amount';
+            $valid = false;
+        } else if ( !is_float($safetylLevel) ) {
+            $safetyLevelError = 'Please enter an amount';
             $valid = false;
         }
 
-        if (empty($emailAddress)) {
-            $emailAddressError = 'Please enter Email Address';
+	if (empty($eoq)) {
+            $eoqError = 'Please enter an amount';
             $valid = false;
-        } else if ( !filter_var($emailAddress,FILTER_VALIDATE_EMAIL) ) {
-            $emailAddressError = 'Please enter a valid Email Address';
-            $valid = false;
-        }
-
-        if (empty($phoneNumber)) {
-            $phoneNumberError = 'Please enter Phone Number';
-            $valid = false;
-        }
-
-        if (empty($loginId)) {
-            $loginIdError = 'Please enter Login ID';
-            $valid = false;
-        }
-
-        if (empty($password)) {
-            $passwordError = 'Please enter Password';
+        } else if ( !is_float($eoq) ) {
+            $eoqError = 'Please enter an amount';
             $valid = false;
         }
 
@@ -115,11 +133,11 @@
         if ($valid) {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO users (FirstName,LastName,MailingAddress,MailingExtraLine,MailingCity,MailingState,MailingZip,EmailAddress,PhoneNumber,LoginId,Password) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO goods (Class,Description,LedgerIn,Cost,LedgerOut,Price,PrimarySupplier,PrimarySupplierPartNo,ImageName,QOH,SafetyLevel,EOQ) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
             $q = $pdo->prepare($sql);
-            $q->execute(array($firstName,$lastName,$mailingAddress,$mailingExtraLine,$mailingCity,$mailingState,$mailingZip,$emailAddress,$phoneNumber,$loginId,$password));
+            $q->execute(array($class,$description,$ledgerIn,$cost,$ledgerOut,$price,$primarySupplier,$primarySupplierPartNo,$imageName,$qoh,$safetyLevel,$eoq));
             Database::disconnect();
-            header("Location: crud_index.php");
+            header("Location: index.php");
         }
     }
 ?> 
@@ -132,7 +150,7 @@
                         <h3>Create Goods and Services</h3>
                     </div>
              
-                    <form class="form-horizontal" action="crud_create.php" method="post">
+                    <form class="form-horizontal" action="goods_create.php" method="post">
                       
 			<!-- Split button -->
 	<div class="btn-group">
@@ -142,124 +160,134 @@
 	    <span class="sr-only">Toggle Dropdown</span>
 	  </button>
 	  <ul class="dropdown-menu" role="menu">
-	    <li><a href="#">Goods</a></li>
-	    <li><a href="#">Services</a></li>
-	    <li><a href="#">Tender</a></li>
-	    <li><a href="#">Asset</a></li>
-	    <li><a href="#">Equity</a></li>
-	    <li><a href="#">Expense</a></li>
-	    <li><a href="#">Rental</a></li>
+	    <li><a href="goods_create.php?class=goods">Goods</a></li>
+	    <li><a href="goods_create.php?class=service">Services</a></li>
+	    <li><a href="goods_create.php?class=tender">Tender</a></li>
+	    <li><a href="goods_create.php?class=asset">Asset</a></li>
+	    <li><a href="goods_create.php?class=equity">Equity</a></li>
+	    <li><a href="goods_create.php?class=expense">Expense</a></li>
+	    <li><a href="goods_create.php?class=rental">Rental</a></li>
 	    <li class="divider"></li>
-	    <li><a href="#">Other</a></li>
+	    <li><a href="goods_create.php?class=other">Other</a></li>
 	  </ul>
 	</div>
 
 			<!-- end button -->
 
-			<div class="control-group <?php echo !empty($lastNameError)?'error':'';?>">
-                        <label class="control-label">Last Name</label>
+			<div class="control-group <?php echo !empty($descriptionError)?'error':'';?>">
+                        <label class="control-label">Description</label>
                         <div class="controls">
-                            <input type="text"  name="LastName" value="<?php echo !empty($lastName)?$lastName:'';?>">
-                            <?php if (!empty($lastNameError)): ?>
-                                <span class="help-inline"><?php echo $lastNameError;?></span>
+                            <input type="text"  name="Description" value="<?php echo !empty($description)?$description:'';?>">
+                            <?php if (!empty($descriptionError)): ?>
+                                <span class="help-inline"><?php echo $descriptionError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
 
-			<div class="control-group <?php echo !empty($mailingAddressError)?'error':'';?>">
-                        <label class="control-label">Mailing Address</label>
+			<div class="control-group <?php echo !empty($ledgerInError)?'error':'';?>">
+                        <label class="control-label">Ledger In</label>
                         <div class="controls">
-                            <input type="text"  name="MailingAddress" value="<?php echo !empty($mailingAddress)?$mailingAddress:'';?>">
-                            <?php if (!empty($mailingAddressError)): ?>
-                                <span class="help-inline"><?php echo $mailingAddressError;?></span>
+                            <input type="number"  name="LedgerIn" value="<?php echo !empty($ledgerIn)?$ledgerIn:'';?>">
+                            <?php if (!empty($ledgerInError)): ?>
+                                <span class="help-inline"><?php echo $ledgerInError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
 
-			<div class="control-group <?php echo !empty($mailingExtraLineError)?'error':'';?>">
-                        <label class="control-label">Suite/Apt.</label>
+			<div class="control-group <?php echo !empty($costError)?'error':'';?>">
+                        <label class="control-label">Cost</label>
                         <div class="controls">
-                            <input type="text"  name="MailingExtraLine" value="<?php echo !empty($mailingExtraLine)?$mailingExtraLine:'';?>">
-                            <?php if (!empty($mailingExtraLineError)): ?>
-                                <span class="help-inline"><?php echo $mailingExtraLineError;?></span>
+                            <input type="number"  name="Cost" value="<?php echo !empty($cost)?$cost:'';?>">
+                            <?php if (!empty($costError)): ?>
+                                <span class="help-inline"><?php echo $costError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
 
-			<div class="control-group <?php echo !empty($mailingCityError)?'error':'';?>">
-                        <label class="control-label">Mailing City</label>
+			<div class="control-group <?php echo !empty($ledgerOutError)?'error':'';?>">
+                        <label class="control-label">Ledger Out</label>
                         <div class="controls">
-                            <input type="text"  name="MailingCity" value="<?php echo !empty($mailingCity)?$mailingCity:'';?>">
-                            <?php if (!empty($mailingCity)): ?>
-                                <span class="help-inline"><?php echo $mailingCityError;?></span>
+                            <input type="number"  name="LedgerOut" value="<?php echo !empty($ledgerOut)?$ledgerOut:'';?>">
+                            <?php if (!empty($ledgerOut)): ?>
+                                <span class="help-inline"><?php echo $ledgerOutError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
 			
-			<div class="control-group <?php echo !empty($mailingStateError)?'error':'';?>">
-                        <label class="control-label">Mailing State (enter 2 letter abbreviation)</label>
+			<div class="control-group <?php echo !empty($priceError)?'error':'';?>">
+                        <label class="control-label">Price</label>
                         <div class="controls">
-                            <input type="text"  name="MailingState" value="<?php echo !empty($mailingState)?$mailingState:'';?>">
-                            <?php if (!empty($mailingState)): ?>
-                                <span class="help-inline"><?php echo $mailingCityError;?></span>
+                            <input type="number"  name="Price" value="<?php echo !empty($price)?$price:'';?>">
+                            <?php if (!empty($price)): ?>
+                                <span class="help-inline"><?php echo $priceError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
 
 					
-			<div class="control-group <?php echo !empty($mailingZipError)?'error':'';?>">
-                        <label class="control-label">Zip Code</label>
+			<div class="control-group <?php echo !empty($primarySupplierError)?'error':'';?>">
+                        <label class="control-label">Primary Supplier</label>
                         <div class="controls">
-                            <input type="text"  name="MailingZip" value="<?php echo !empty($mailingZip)?$mailingZip:'';?>">
-                            <?php if (!empty($mailingZip)): ?>
-                                <span class="help-inline"><?php echo $mailingZipError;?></span>
+                            <input type="number"  name="PrimarySupplier" value="<?php echo !empty($primarySupplier)?$primarySupplier:'';?>">
+                            <?php if (!empty($primarySupplier)): ?>
+                                <span class="help-inline"><?php echo $primarySupplierError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
 
 
-                      <div class="control-group <?php echo !empty($emailAddressError)?'error':'';?>">
-                        <label class="control-label">Email Address</label>
+                      <div class="control-group <?php echo !empty($primarySupplierPartNoError)?'error':'';?>">
+                        <label class="control-label">Primary Supplier Part No.</label>
                         <div class="controls">
-                            <input name="EmailAddress" type="text" name="EmailAddress" value="<?php echo !empty($emailAddress)?$emailAddress:'';?>">
-                            <?php if (!empty($emailAddressError)): ?>
-                                <span class="help-inline"><?php echo $emailAddressError;?></span>
+                            <input type="text" name="PrimarySupplierPartNo" value="<?php echo !empty($primarySupplierPartNo)?$primarySupplierPartNo:'';?>">
+                            <?php if (!empty($primarySupplierPartNoError)): ?>
+                                <span class="help-inline"><?php echo $primarySupplierPartNoError;?></span>
                             <?php endif;?>
                         </div>
                       </div>
 
 
-			<div class="control-group <?php echo !empty($phoneNumberError)?'error':'';?>">
-                        <label class="control-label">Phone Number</label>
+			<div class="control-group <?php echo !empty($imageNameError)?'error':'';?>">
+                        <label class="control-label">Image Name</label>
                         <div class="controls">
-                            <input type="text"  name="PhoneNumber" value="<?php echo !empty($phoneNumber)?$phoneNumber:'';?>">
-                            <?php if (!empty($phoneNumber)): ?>
-                                <span class="help-inline"><?php echo $phoneNumberError;?></span>
+                            <input type="text"  name="ImageName" value="<?php echo !empty($imageName)?$imageName:'';?>">
+                            <?php if (!empty($imageName)): ?>
+                                <span class="help-inline"><?php echo $imageNameError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
 
 
-                      <div class="control-group <?php echo !empty($loginIdError)?'error':'';?>">
-                        <label class="control-label">Login Id</label>
+                      <div class="control-group <?php echo !empty($qohError)?'error':'';?>">
+                        <label class="control-label">Quantity On Hand</label>
                         <div class="controls">
-                            <input name="LoginId" type="text"  name="LoginId" value="<?php echo !empty($loginId)?$loginId:'';?>">
-                            <?php if (!empty($loginIdError)): ?>
-                                <span class="help-inline"><?php echo $loginIdError;?></span>
+                            <input name="QOH" type="number"  value="<?php echo !empty($qoh)?$qoh:'';?>">
+                            <?php if (!empty($qohError)): ?>
+                                <span class="help-inline"><?php echo $qohError;?></span>
                             <?php endif;?>
 		      </div>
                       </div>
-                     <div class="control-group <?php echo !empty($passwordError)?'error':'';?>">
-                        <label class="control-label">Password</label>
+                     <div class="control-group <?php echo !empty($safetyLevelError)?'error':'';?>">
+                        <label class="control-label">Safety Level</label>
                         <div class="controls">
-                            <input name="Password" type="password"  name="Password" value="<?php echo !empty($password)?$password:'';?>">
-			    <span class="help-inline"><?php echo $passwordError;?></span>
+                            <input type="number"  name="safetyLevel" value="<?php echo !empty($safetyLevel)?$safetyLevel:'';?>">
+			    <span class="help-inline"><?php echo $safetyLevelError;?></span>
                            
 				</div>
 				</div>
+
+			
+			<div class="control-group <?php echo !empty($eoqError)?'error':'';?>">
+                        <label class="control-label">Economic Order Quantity</label>
+                        <div class="controls">
+                            <input type="number"  name="safetyLevel" value="<?php echo !empty($eoq)?$eoq:'';?>">
+                            <span class="help-inline"><?php echo $eoqError;?></span>
+
+                                </div>
+                                </div>
 			  <div class="form-actions">
                           <button type="submit" class="btn btn-success">Create</button>
-                          <a class="btn" href="index.php">Back</a>
+                          <a class="btn" href="goods_index.php">Back</a>
                         </div>
                     </form>
                 </div>

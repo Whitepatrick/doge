@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -17,47 +18,37 @@
 
     <div class="container">
             <div class="row">
-                <h3>Doge Users</h3>
+                <h3>Doge Goods & services</h3>
             </div>
             <div class="row">
                 
-		<p><a href="create.php" class="btn btn-success">Create User</a></p>
+		
 		<p><a href="goods_create.php" class="btn btn-success">Create Goods</a></p>
                
 		<table class="table table-striped table-bordered">
                   <thead>
                     <tr>
-                      <th>ID</th>
-		      <th>First Name</th>
-                      <th>Last Name</th>
-		      <th>Extra Line</th>
-		      <th>Mailing Address</th>
-		      <th>City and State</th>
-		      <th>Zip Code</th>	
-		      <th>Email Address</th>
-		     </tr>
+                      <th>Id</th>
+		      <th>Description</th>
+                      <th>Class</th>
+		    </tr>
                   </thead>
                   <tbody>
                   <?php
                    include 'database.php';
                    $pdo = Database::connect();
-                   $sql = 'SELECT * FROM users ORDER BY Id DESC';
+                   $sql = 'SELECT * FROM goods ORDER BY Id DESC';
                    foreach ($pdo->query($sql) as $row) {
                             echo '<tr>';
                             echo '<td>'. $row['Id'] . '</td>';
-                            echo '<td>'. $row['FirstName'] . '</td>';
-                            echo '<td>'. $row['LastName'] . '</td>';
-                            echo '<td>'. $row['MailingAddress'] . '</td>';
-                            echo '<td>'. $row['MailingExtraLine'] . '</td>';
-                            echo '<td>'. $row['MailingPostOffice'] . '</td>';
-			    echo '<td>'. $row['MailingZip'] . '</td>';
-                            echo '<td>'. $row['EmailAddress'] . '</td>';
+                            echo '<td>'. $row['Description'] . '</td>';
+                            echo '<td>'. $row['Class'] . '</td>';
 			    echo '<td width=250>';
-			    echo '<a class="btn" href="read.php?id='.$row['Id'].'">Read</a>';
+			    echo '<a class="btn" href="goods_read.php?id='.$row['Id'].'">Read</a>';
                             echo '';
-                            echo '<a class="btn btn-success" href="update.php?id='.$row['Id'].'">Update</a>';
+                            echo '<a class="btn btn-success" href="goods_update.php?id='.$row['Id'].'">Update</a>';
                             echo '';
-                            echo '<a class="btn btn-danger" href="delete.php?id='.$row['Id'].'">Delete</a>';
+                            echo '<a class="btn btn-danger" href="goods_delete.php?id='.$row['Id'].'">Delete</a>';
                             echo '</td>';
 
                    }
