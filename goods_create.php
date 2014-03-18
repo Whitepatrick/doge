@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,12 +5,16 @@
     <link   href="css/bootstrap.min.css" rel="stylesheet">
     <script src="scripts/bootstrap.min.js"></script>
     <script src="scripts/jquery-2.1.0.js"></script>
-    <script src="scripts/dropdown.js"></script>	
+    <script src="scripts/dropdown.js"></script> 
 </head>
+
 
 <?php
 
     require 'database.php';
+
+	ini_set('display_errors',1); 
+ 	error_reporting(E_ALL);
 
     if (!empty($_POST)) {
         // keep track validation errors
@@ -27,18 +30,10 @@
         $qohError = null;
         $safetyLevelError = null;
         $eoqError = null;
-
-        // keep track post values
 	
-        // if ($firstName isset($_POST['FirstName']));
-        // if (isset(
 
-	// $_POST['FirstName'], $_POST['LastName'], $_POST['MailingAddress'], $_POST['MailingExtraLine'], 
-	// $_POST['MailingCity'], $_POST['MailingState'], $_POST['MailingZip'], $_POST['EmailAddress'], 
-	// $_POST['PhoneNumber'], $_POST['LoginId'], $_POST['Password']
-
-	// ));
-	$class = $_POST['Class'];
+	$notify = "";
+//	$class = $_GET['Class'];
 	$description = $_POST['Description'];
         $ledgerIn = $_POST['LedgerIn'];
         $cost = $_POST['Cost'];
@@ -52,7 +47,6 @@
 	$eoq = $_POST['EOQ'];
         if(isset($_POST['notify_box'])){ $notify = $_POST['notify_box']; }
 
-
         // validate input
         $valid = true;
         if (empty($description)) {
@@ -65,66 +59,42 @@
             $valid = false;
 	}            
 	
-	if (empty($ledgerIn)) {
-	    $ledgerInError = 'Please enter monetary value';
-	    $valid = false;	
-	} else if ( !filter_var($ledgerIn,FILTER_VALIDATE_INT) ) {
+	if ( !filter_var($ledgerIn,FILTER_VALIDATE_INT) ) {
 	    $ledgerInError = 'Please enter a dollar amount';
 	    $valid = false;
 	}
 
-	if (empty($cost)) {
-            $costError = 'Please enter monetary value';     
-            $valid = false;
-        } else if ( !is_float($cost) ) {
+	if ( !is_float($cost) ) {
             $ledgerInError = 'Please enter a dollar amount';
             $valid = false;
         }
 
-	if (empty($ledgerOut)) {
-            $ledgerOutError = 'Please enter monetary value';     
-            $valid = false;
-        } else if ( !filter_var($ledgerOut,FILTER_VALIDATE_INT) ) {
+	if ( !filter_var($ledgerOut,FILTER_VALIDATE_INT) ) {
             $ledgerOutError = 'Please enter a dollar amount';
             $valid = false;
         }
 
-	if (empty($price)) {
-            $priceError = 'Please enter monetary value';    
-            $valid = false;
-        } else if ( !is_float($price) ) {
+	if ( !is_float($price) ) {
             $priceError = 'Please enter a dollar amount';
             $valid = false;
         }
 
-	if (empty($primarySupplier)) {
-            $primarySupplierError = 'Please enter an integer';
-            $valid = false;
-        } else if ( !filter_var($ledgerOut,FILTER_VALIDATE_INT) ) {
+	if ( !filter_var($primarySupplier,FILTER_VALIDATE_INT) ) {
             $primarySupplierError = 'Please enter an integer';
             $valid = false;
         }
 
-	if (empty($qoh)) {
-            $qohError = 'Please enter an amount';
-            $valid = false;
-        } else if ( !is_float($qoh) ) {
+	if ( !is_float($qoh) ) {
             $qohError = 'Please enter an amount';
             $valid = false;
         }
 
-	if (empty($safetyLevel)) {
-            $safetyLevelError = 'Please enter an amount';
-            $valid = false;
-        } else if ( !is_float($safetylLevel) ) {
+	if ( !is_float($safetyLevel) ) {
             $safetyLevelError = 'Please enter an amount';
             $valid = false;
         }
 
-	if (empty($eoq)) {
-            $eoqError = 'Please enter an amount';
-            $valid = false;
-        } else if ( !is_float($eoq) ) {
+	if ( !is_float($eoq) ) {
             $eoqError = 'Please enter an amount';
             $valid = false;
         }
@@ -133,14 +103,14 @@
         if ($valid) {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO goods (Class,Description,LedgerIn,Cost,LedgerOut,Price,PrimarySupplier,PrimarySupplierPartNo,ImageName,QOH,SafetyLevel,EOQ) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+            $sql = "INSERT INTO goods (Class,Description,LedgerIn,Cost,LedgerOut,Price,PrimarySupplier,PrimarySupplierPartNo,ImageName,QOH,SafetyLevel,EOQ) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $q = $pdo->prepare($sql);
             $q->execute(array($class,$description,$ledgerIn,$cost,$ledgerOut,$price,$primarySupplier,$primarySupplierPartNo,$imageName,$qoh,$safetyLevel,$eoq));
             Database::disconnect();
-            header("Location: index.php");
+            header("Location: goods_index.php");
         }
     }
-?> 
+?>
 
 <body>
     <div class="container">
@@ -160,13 +130,13 @@
 	    <span class="sr-only">Toggle Dropdown</span>
 	  </button>
 	  <ul class="dropdown-menu" role="menu">
-	    <li><a href="goods_create.php?class=goods">Goods</a></li>
-	    <li><a href="goods_create.php?class=service">Services</a></li>
-	    <li><a href="goods_create.php?class=tender">Tender</a></li>
-	    <li><a href="goods_create.php?class=asset">Asset</a></li>
-	    <li><a href="goods_create.php?class=equity">Equity</a></li>
-	    <li><a href="goods_create.php?class=expense">Expense</a></li>
-	    <li><a href="goods_create.php?class=rental">Rental</a></li>
+	    <li><a href="goods_create.php?Class=goods">Goods</a></li>
+	    <li><a href="goods_create.php?Class=service">Services</a></li>
+	    <li><a href="goods_create.php?Class=tender">Tender</a></li>
+	    <li><a href="goods_create.php?Class=asset">Asset</a></li>
+	    <li><a href="goods_create.php?Class=equity">Equity</a></li>
+	    <li><a href="goods_create.php?Class=expense">Expense</a></li>
+	    <li><a href="goods_create.php?Class=rental">Rental</a></li>
 	    <li class="divider"></li>
 	    <li><a href="goods_create.php?class=other">Other</a></li>
 	  </ul>
@@ -270,9 +240,8 @@
                      <div class="control-group <?php echo !empty($safetyLevelError)?'error':'';?>">
                         <label class="control-label">Safety Level</label>
                         <div class="controls">
-                            <input type="number"  name="safetyLevel" value="<?php echo !empty($safetyLevel)?$safetyLevel:'';?>">
-			    <span class="help-inline"><?php echo $safetyLevelError;?></span>
-                           
+                            <input type="number"  name="SafetyLevel" value="<?php echo !empty($safetyLevel)?$safetyLevel:'';?>">
+			  <!-- span class="help-inline" --><!-- ?php // echo $safetyLevelError;? --><!-- /span -->                           
 				</div>
 				</div>
 
@@ -280,8 +249,8 @@
 			<div class="control-group <?php echo !empty($eoqError)?'error':'';?>">
                         <label class="control-label">Economic Order Quantity</label>
                         <div class="controls">
-                            <input type="number"  name="safetyLevel" value="<?php echo !empty($eoq)?$eoq:'';?>">
-                            <span class="help-inline"><?php echo $eoqError;?></span>
+                            <input type="number"  name="EOQ" value="<?php echo !empty($eoq)?$eoq:'';?>">
+                            <!-- span class="help-inline" --><!-- ?php // echo $eoqError;? --><!-- /span -->
 
                                 </div>
                                 </div>
