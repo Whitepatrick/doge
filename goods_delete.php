@@ -13,11 +13,11 @@
         // delete data
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "DELETE FROM users  WHERE Id = ?";
+        $sql = "DELETE FROM goods  WHERE Id = ?";
         $q = $pdo->prepare($sql);
         $q->execute(array($id));
         Database::disconnect();
-        header("Location: index.php");
+        header("Location: goods_index.php");
          
     }
 ?>
@@ -38,12 +38,12 @@
                         <h3>Delete a User</h3>
                     </div>
                      
-                    <form class="form-horizontal" action="delete.php" method="post">
+                    <form class="form-horizontal" action="goods_delete.php" method="post">
                       <input type="hidden" name="id" value="<?php echo $id;?>"/>
                       <p class="alert alert-error">Are you sure to delete ?</p>
                       <div class="form-actions">
                           <button type="submit" class="btn btn-danger">Yes</button>
-                          <a class="btn" href="index.php">No</a>
+                          <a class="btn" href="goods_index.php">No</a>
                         </div>
                     </form>
                 </div>

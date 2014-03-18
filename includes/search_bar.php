@@ -1,4 +1,3 @@
-
 <div class="navbar navbar-static-top" role="navigation">
 
     <div class="navbar-header">
@@ -16,7 +15,7 @@
 
         
         <div class="col-sm-3 col-md-3 pull-right">
-        <form class="navbar-form" role="search">
+        <form class="navbar-form" action="search.php" role="search">
         <div class="input-group">
             <input type="text" class="form-control" type="Search" name="srch-term" id="srch-term">
             <div class="input-group-btn">
