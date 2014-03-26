@@ -27,8 +27,6 @@
 		$primarySupplierPartNoError = NULL;
 		$imageNameError = NULL;
 		$qohError = NULL;
-		$safetyLevelError = NULL;
-		$eoqError = NULL;
 
 		
 		$notify "";
@@ -41,8 +39,6 @@
                 $primarySupplierPartNo = $_POST['PrimarySupplierPartNo'];
                 $imageName = $_POST['ImageName'];
                 $qoh = $_POST['QOH'];
-		$safetyLevel = $_POST['SafetyLevel'];
-                $eoq = $_POST['EOQ'];
 		if(isset($_POST['notify_box'])){ $notify = $_POST['notify_box']; }
 
 		
@@ -75,46 +71,79 @@
 		}
 
 		if (empty($ledgerOut)) {
-                        $ledgerOutError = 'Please ';
+                        $ledgerOutError = 'Please enter a dollar amount';
                         $valid = false;
                 } else if ( !filter_var($ledgerOut,FILTER_VALIDATE_INT) ) {
-                        $ledgerOutError = '';
+                        $ledgerOutError = 'Please enter a dollar amount';
                         $valid = false;
                 }
 
-                if (empty($)) {
-                        $Error = '';
+                if (empty($price)) {
+                        $priceError = 'Please enter a dollar amount';
                         $valid = false;
-                } else if ( !is_float($) ) {
-                        $Error = '';
+                } else if ( !is_float($price) ) {
+                        $priceError = 'Please enter a dollar amount';
                         $valid = false;
                 }
 		
-		if (empty($)) {
-                        $Error = '';
+		if (empty($primarySupplier)) {
+                        $primarySupplierError = 'Please enter an integer';
                         $valid = false;
-                } else if ( !filter_var($,FILTER_VALIDATE_INT) ) {
-                        $Error = '';
-                        $valid = false;
-                }
-
-                if (empty($)) {
-                        $Error = '';
-                        $valid = false;
-                } else if ( !is_float($) ) {
-                        $Error = '';
+                } else if ( !filter_var($primarySupplier,FILTER_VALIDATE_INT) ) {
+                        $primarySupplierError = 'Please enter an integer';
                         $valid = false;
                 }
 
-		if (empty($)) {
-                        $Error = '';
+                if (empty($qoh)) {
+                        $qohError = 'Enter an amount';
                         $valid = false;
-                } else if ( !is_float($) ) {
-                        $Error = '';
+                } else if ( !is_float($qoh) ) {
+                        $qohError = 'Enter an amount';
                         $valid = false;
                 }
 
 
+		if ($valid) {
+			$pdo = Database::connect();
+			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$sql = "INSERT INTO goods (Class,Description,LedgerIn,Cost,LedgerOut,Price,PrimarySupplier,QOH) VALUES(?,?,?,?,?,?,?,?)";
+			$q = $pdo->prepare($sql);
+			$q->execute(array($class,$description,$ledgerIn,$cost,$ledgerOut,$price,$primarySupplier,$qoh));
+			Database::disconnect();
+			header("Location: goods_index");
+
+		}
+	}
+?>
+	
+
+<body>
+
+<div class="container">
+	<div class="span10 offset1">
+		<div class="row">
+			<h3>Create Goods & Services</h3>
+		</div>
+
+		<form class="form-horizontal" action="goods.php" method="post">
+
+		<div class="btn-group">
+		<button type="button" class="btn btn-primary">Select Class</button>
+		<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+			<span class="sr-only">Toggle Dropdown</span>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="goods.php?Class=Goods">Goods</a></li>
+			<li><a href="goods.php?Class=Service">Service</a></li>
+			<li><a href="goods.php?Class=Tender">Tender</a></li>
+			<li><a href="goods.php?Class=Asset">Asset</a></li>
+			<li><a href="goods.php?Class=Equity">Equity</a></li>
+			<li><a href="goods.php?Class=Expense">Expense</a></li>
+			<li><a href="goods.php?Class=Rental">Rental</a></li>
+			<li class="divider"></li>
+			<li><a href="goods.php?Class=Other">Other</a></li>
+		</ul>
+		</div>
 
 
 
