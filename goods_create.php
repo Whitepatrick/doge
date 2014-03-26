@@ -59,42 +59,66 @@
             $valid = false;
 	}            
 	
-	if ( !filter_var($ledgerIn,FILTER_VALIDATE_INT) ) {
+	if (empty($ledgerIn)) {
+	    $ledgerInError = 'Please enter a dollar amount';
+	    $valid = false;
+	} else if ( !filter_var($ledgerIn,FILTER_VALIDATE_INT) ) {
 	    $ledgerInError = 'Please enter a dollar amount';
 	    $valid = false;
 	}
 
-	if ( !is_float($cost) ) {
+	if (empty($cost)) {
+            $costError = 'Please enter a dollar amount';
+            $valid = false;
+	} else if ( !is_float($cost) ) {
             $ledgerInError = 'Please enter a dollar amount';
             $valid = false;
         }
 
-	if ( !filter_var($ledgerOut,FILTER_VALIDATE_INT) ) {
+	if (empty($ledgerOut)) {
+            $ledgerOutError = 'Please enter a dollar amount';
+            $valid = false;
+	} else if ( !filter_var($ledgerOut,FILTER_VALIDATE_INT) ) {
             $ledgerOutError = 'Please enter a dollar amount';
             $valid = false;
         }
 
-	if ( !is_float($price) ) {
+	if (empty($price)) {
+            $priceError = 'Please enter a dollar amount';
+            $valid = false;
+	} else if ( !is_float($price) ) {
             $priceError = 'Please enter a dollar amount';
             $valid = false;
         }
 
-	if ( !filter_var($primarySupplier,FILTER_VALIDATE_INT) ) {
+	if (empty($primarySupplier)) {
+            $primarySupplierError = 'Please enter an integer';
+            $valid = false;
+	} else if ( !filter_var($primarySupplier,FILTER_VALIDATE_INT) ) {
             $primarySupplierError = 'Please enter an integer';
             $valid = false;
         }
 
-	if ( !is_float($qoh) ) {
+	if (empty($qoh)) {
+            $qohError = 'Please enter an amount';
+            $valid = false;
+	} else if ( !is_float($qoh) ) {
             $qohError = 'Please enter an amount';
             $valid = false;
         }
 
-	if ( !is_float($safetyLevel) ) {
+	if (empty($safetyLevel)) {
+            $safetyLevelError = 'Please enter an amount';
+            $valid = false;
+	} else if ( !is_float($safetyLevel) ) {
             $safetyLevelError = 'Please enter an amount';
             $valid = false;
         }
 
-	if ( !is_float($eoq) ) {
+	if (empty($eoq)) {
+            $eoqError = 'Please enter an amount';
+            $valid = false;
+	} else if ( !is_float($eoq) ) {
             $eoqError = 'Please enter an amount';
             $valid = false;
         }
