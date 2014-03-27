@@ -30,8 +30,11 @@
                     <tr>
                       <th>Id</th>
 		      <th>Description</th>
-                      <th>Class</th>
 		      <th>Ledger In</th>
+		      <th>Cost</th>
+		      <th>Ledger Out</th>
+		      <th>Price</th>
+		      <th>Quantity on Hand</th>	
 		    </tr>
                   </thead>
                   <tbody>
@@ -43,8 +46,11 @@
                             echo '<tr>';
                             echo '<td>'. $row['Id'] . '</td>';
                             echo '<td>'. $row['Description'] . '</td>';
-                            echo '<td>'. $row['Class'] . '</td>';
-			    echo '<td>'. $row['LedgerIn'] . '</td>';
+                            echo '<td>'. $row['LedgerIn'] . '</td>';
+			    echo '<td>'. $row['Cost'] . '</td>';
+			    echo '<td>'. $row['LedgerOut'] . '</td>';
+		            echo '<td>'. $row['Price'] . '</td>';	
+			    echo '<td>'. $row['QOH'] . '</td>';
 			    echo '<td width=250>';
 			    echo '<a class="btn" href="goods_read.php?id='.$row['Id'].'">Read</a>';
                             echo '';
