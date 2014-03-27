@@ -31,6 +31,7 @@
                       <th>Id</th>
 		      <th>Description</th>
                       <th>Class</th>
+		      <th>Ledger In</th>
 		    </tr>
                   </thead>
                   <tbody>
@@ -43,6 +44,7 @@
                             echo '<td>'. $row['Id'] . '</td>';
                             echo '<td>'. $row['Description'] . '</td>';
                             echo '<td>'. $row['Class'] . '</td>';
+			    echo '<td>'. $row['LedgerIn'] . '</td>';
 			    echo '<td width=250>';
 			    echo '<a class="btn" href="goods_read.php?id='.$row['Id'].'">Read</a>';
                             echo '';
