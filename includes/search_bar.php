@@ -8,6 +8,7 @@
         <span class="icon-bar"></span>
         </button>
         <script src="scripts/rand_img.js"></script>
+	<br>
 	<a class="navbar-brand" rel="home" href="../index.php" title="Doge Walks">Doge Walks</a>
     </div>
 
